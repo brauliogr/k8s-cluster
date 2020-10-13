@@ -2,7 +2,7 @@
   command: kubeadm reset -f
  
 - name: Inicie o cluster k8s
-  command: kubeadm init
+  command: kubeadm init --apiserver-advertise-address=172.31.71.178
   register: kubeadm_init_output
 
 - name: Crie o arquivo com a saida
