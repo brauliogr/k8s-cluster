@@ -45,4 +45,4 @@ steps:
   - chmod 644 ~/.ssh/id_rsa.pub
   - ln -s /usr/bin/python3 /usr/bin/python
   - chmod +x ec2.py
-  - ansible-playbook -i ec2.py k8s-cluster.yml
+  - ansible-playbook -i ec2.py --limit "tag_name_k8s" -u ubuntu --ssh-common-args='-o StrictHostKeyChecking=no' --public-key ~/.ssh/id_rsa.pub k8s-cluster.yml
