@@ -1,4 +1,4 @@
-- name: Destrua qualquer cluster anterior
+- name: Destrua qualquer cluster criado
   command: kubeadm reset -f
 
 - name: Inicie o cluster k8s
