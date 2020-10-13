@@ -39,7 +39,6 @@ steps:
   commands:
   - mkdir -p ~/.ssh/
   - echo "$PRIVATE_KEY" > ~/.ssh/id_rsa
-  - unset PRIVATE_KEY
   - chmod 600 ~/.ssh/id_rsa
   - echo "$PUBLIC_KEY" > ~/.ssh/id_rsa.pub
   - unset PUBLIC_KEY
