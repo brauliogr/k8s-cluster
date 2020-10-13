@@ -39,7 +39,6 @@ steps:
   - echo "$PRIVATE_KEY" > ~/.ssh/id_rsa.pub
   - unset PRIVATE_KEY
   - chmod 600 ~/.ssh/id_rsa.pub
-  - apt-get install python3
-  - ln -s /usr/bin/python3 /usr/bin/python
+   - ln -s /usr/bin/python3 /usr/bin/python
   - chmod +x ec2.py
-  - ansible-playbook -i ec2.py --limit "tag_name_k8s" -u ubuntu --ssh-common-args='-o StrictHostKeyChecking=no' --private-key ~/.ssh/id_rsa.pub k8s-cluster.yml
+  - ansible-playbook -i ec2.py --limit "tag_name_k8s" -u ubuntu --ssh-common-args='-o StrictHostKeyChecking=no' --key-file /root/.ssh/id_rsa.pub k8s-cluster.yml
