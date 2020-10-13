@@ -1,9 +1,6 @@
 - name: Destrua qualquer cluster criado
   command: kubeadm reset -f
  
-- name: Remove o config do root
-  shell: rm /root/.kube/config
-  
 - name: Inicie o cluster k8s
   command: kubeadm init
   register: kubeadm_init_output
@@ -15,9 +12,6 @@
 
 - name: Prepare o script do kubejoin
   shell: tail -2 /root/kubeadminit > /root/kubejoin.sh
-
-- name: Copia o novo config do root
-  shell: cp -i /etc/kubernetes/admin.conf /root/.kube/config
 
 - name: Get Kubejoin
   fetch:
