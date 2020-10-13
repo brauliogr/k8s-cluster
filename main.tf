@@ -36,7 +36,7 @@ resource "aws_instance" "k8s-node" {
 
 resource "aws_key_pair" "my-key" {
   key_name = "my-key"
-  public_key = "${file("/home/braulio/Documentos/chaves-privadas/id_rsa.pub")}"
+  public_key = "${file("/home/id_rsa.pub")}"
 
 }
 
