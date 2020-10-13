@@ -1,0 +1,37 @@
+- name: Destrua qualquer cluster anterior
+  command: kubeadm reset -f
+
+- name: Inicie o cluster k8s
+  command: kubeadm init
+  register: kubeadm_init_output
+
+- name: Copie o Kubeadm
+  shell: cp -R /etc/kubernetes/admin.conf /root/.kube/config
+
+- name: Crie o arquivo com a saida
+  copy: 
+    content: "{{ kubeadm_init_output.stdout }}"
+    dest: /root/kubeadminit
+
+- name: Prepare o script do kubejoin
+  shell: tail -2 /root/kubeadminit > /root/kubejoin.sh
+
+- name: Get Kubejoin
+  fetch:
+    dest: ./join
+    src: /root/kubejoin.sh
+
+- name: Organize os arquivos
+  shell: |
+         cp join/{{ inventory_hostname }}/root/kubejoin.sh join/
+         rm -rf join/{{ inventory_hostname }}      
+  delegate_to: localhost
+  become: no
+
+- name: Instale o Network Pod
+  command: kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
+    
+
+
