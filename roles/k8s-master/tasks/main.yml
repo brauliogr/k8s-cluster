@@ -5,6 +5,9 @@
   command: kubeadm init
   register: kubeadm_init_output
 
+-name: Crie o diretorio kube no root
+  shell: mkdir /root/.kube
+  
 - name: Copie o Kubeadm
   shell: cp -R /etc/kubernetes/admin.conf /root/.kube/config
 
